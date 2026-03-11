@@ -958,7 +958,12 @@ html {
   window.openPDFPreview = function(bytes) {
     var blob = new Blob([bytes], {type:'application/pdf'});
     var url = URL.createObjectURL(blob);
-    window.open(url, '_blank');
+    var statusDiv = document.getElementById('previewStatus');
+    statusDiv.style.display = 'block';
+    statusDiv.innerHTML = '<div style="padding:12px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">' +
+      '<span>✅ PDF ready!</span>' +
+      '<a href="' + url + '" target="_blank" rel="noopener" style="display:inline-block;background:#16a34a;color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;">📄 Open PDF</a>' +
+      '</div>';
   };
 })();
 </script>
@@ -4387,8 +4392,7 @@ function requestPDFPreview() {
       window.openPDFPreview(pdfBytes);
       btn.disabled = false;
       btn.innerHTML = '🔍 Preview PDF';
-      statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '<div style="padding:10px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;">✅ PDF opened in a new tab!</div>';
+      // link is shown by openPDFPreview above
     }).catch(function(err) {
       console.error('PDF generation error:', err);
       btn.disabled = false;
