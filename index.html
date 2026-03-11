@@ -3959,6 +3959,7 @@ function requestPDFPreview() {
   // Save flat (no nesting) so fill_v4.py can read keys directly from webhook_input.json
   var payload = JSON.stringify(data, null, 2);
   if (window.tasklet && window.tasklet.writeFileToDisk) {
+    // Inside Tasklet preview panel — use agent messaging
     window.tasklet.writeFileToDisk('/agent/home/seller-disclosure-preview-request.json', payload)
       .then(function() {
         if (window.tasklet.sendMessageToAgent) {
@@ -3975,6 +3976,34 @@ function requestPDFPreview() {
         btn.innerHTML = '🔍 Preview PDF';
         statusDiv.innerHTML = '<span style="color:#dc2626;">Request failed. Please try again.</span>';
       });
+  } else {
+    // Live site — send to GAS which fires the webhook to generate + email the PDF
+    var emailVal = data.sellerEmail || '';
+    if (!emailVal) {
+      btn.disabled = false;
+      btn.innerHTML = '🔍 Preview PDF';
+      statusDiv.innerHTML = '<span style="color:#dc2626;">Please enter your email address before previewing.</span>';
+      return;
+    }
+    var gasData = JSON.parse(payload);
+    gasData.action = 'previewPDF';
+    fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify(gasData),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(function() {
+      btn.disabled = false;
+      btn.innerHTML = '🔍 Preview PDF';
+      statusDiv.style.display = 'block';
+      statusDiv.innerHTML = '<div style="padding:10px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;">✅ Your preview PDF is being generated and will be emailed to <strong>' + emailVal + '</strong> shortly!</div>';
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.innerHTML = '🔍 Preview PDF';
+      statusDiv.style.display = 'block';
+      statusDiv.innerHTML = '<span style="color:#dc2626;">Request failed. Please try again.</span>';
+    });
   }
 }
 function submitForm() {
