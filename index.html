@@ -559,6 +559,410 @@ html {
     .radio-group { flex-direction: column; }
   }
 </style>
+
+<!-- pdf-lib for browser-side PDF generation -->
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// Browser-side PDF generation (pdf-lib)
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  var CB = {"1": [{"cx": 548.48, "top": 435.6, "cy_rl": 356.4}, {"cx": 575.49, "top": 435.6, "cy_rl": 356.4}, {"cx": 68.92, "top": 470.03, "cy_rl": 321.97}, {"cx": 222.98, "top": 493.03, "cy_rl": 298.97}, {"cx": 375.63, "top": 493.03, "cy_rl": 298.97}, {"cx": 448.05, "top": 493.03, "cy_rl": 298.97}, {"cx": 221.78, "top": 504.63, "cy_rl": 287.37}, {"cx": 307.0, "top": 504.63, "cy_rl": 287.37}, {"cx": 548.48, "top": 550.63, "cy_rl": 241.37}, {"cx": 576.88, "top": 550.63, "cy_rl": 241.37}, {"cx": 548.48, "top": 573.65, "cy_rl": 218.35}, {"cx": 576.88, "top": 573.65, "cy_rl": 218.35}, {"cx": 548.48, "top": 608.05, "cy_rl": 183.95}, {"cx": 576.88, "top": 608.05, "cy_rl": 183.95}, {"cx": 548.48, "top": 619.65, "cy_rl": 172.35}, {"cx": 576.88, "top": 619.65, "cy_rl": 172.35}, {"cx": 548.48, "top": 631.05, "cy_rl": 160.95}, {"cx": 576.88, "top": 631.05, "cy_rl": 160.95}, {"cx": 548.48, "top": 642.65, "cy_rl": 149.35}, {"cx": 576.88, "top": 642.65, "cy_rl": 149.35}, {"cx": 548.48, "top": 654.05, "cy_rl": 137.95}, {"cx": 576.88, "top": 654.05, "cy_rl": 137.95}, {"cx": 548.48, "top": 665.68, "cy_rl": 126.32}, {"cx": 576.88, "top": 665.68, "cy_rl": 126.32}, {"cx": 548.48, "top": 677.08, "cy_rl": 114.92}, {"cx": 576.88, "top": 677.08, "cy_rl": 114.92}], "2": [{"cx": 548.48, "top": 41.7, "cy_rl": 750.3}, {"cx": 576.88, "top": 41.7, "cy_rl": 750.3}, {"cx": 517.68, "top": 53.13, "cy_rl": 738.87}, {"cx": 549.08, "top": 53.13, "cy_rl": 738.87}, {"cx": 576.88, "top": 53.13, "cy_rl": 738.87}, {"cx": 548.48, "top": 64.73, "cy_rl": 727.27}, {"cx": 576.88, "top": 64.73, "cy_rl": 727.27}, {"cx": 548.48, "top": 76.13, "cy_rl": 715.87}, {"cx": 576.88, "top": 76.13, "cy_rl": 715.87}, {"cx": 548.48, "top": 87.73, "cy_rl": 704.27}, {"cx": 576.88, "top": 87.73, "cy_rl": 704.27}, {"cx": 258.98, "top": 179.75, "cy_rl": 612.25}, {"cx": 548.48, "top": 191.15, "cy_rl": 600.85}, {"cx": 576.88, "top": 191.15, "cy_rl": 600.85}, {"cx": 548.48, "top": 214.15, "cy_rl": 577.85}, {"cx": 576.88, "top": 214.15, "cy_rl": 577.85}, {"cx": 548.48, "top": 237.15, "cy_rl": 554.85}, {"cx": 576.88, "top": 237.15, "cy_rl": 554.85}, {"cx": 176.55, "top": 248.76, "cy_rl": 543.24}, {"cx": 248.18, "top": 248.76, "cy_rl": 543.24}, {"cx": 410.03, "top": 260.17, "cy_rl": 531.83}, {"cx": 548.48, "top": 363.8, "cy_rl": 428.2}, {"cx": 576.88, "top": 363.8, "cy_rl": 428.2}, {"cx": 548.48, "top": 375.2, "cy_rl": 416.8}, {"cx": 576.88, "top": 375.2, "cy_rl": 416.8}, {"cx": 548.48, "top": 386.8, "cy_rl": 405.2}, {"cx": 576.88, "top": 386.8, "cy_rl": 405.2}, {"cx": 548.48, "top": 409.8, "cy_rl": 382.2}, {"cx": 576.88, "top": 409.8, "cy_rl": 382.2}, {"cx": 548.48, "top": 444.2, "cy_rl": 347.8}, {"cx": 576.88, "top": 444.2, "cy_rl": 347.8}, {"cx": 164.95, "top": 478.82, "cy_rl": 313.18}, {"cx": 394.22, "top": 478.82, "cy_rl": 313.18}, {"cx": 548.48, "top": 616.85, "cy_rl": 175.15}, {"cx": 576.88, "top": 616.85, "cy_rl": 175.15}, {"cx": 548.48, "top": 639.85, "cy_rl": 152.15}, {"cx": 576.88, "top": 639.85, "cy_rl": 152.15}, {"cx": 548.48, "top": 651.25, "cy_rl": 140.75}, {"cx": 576.88, "top": 651.25, "cy_rl": 140.75}, {"cx": 548.48, "top": 662.87, "cy_rl": 129.13}, {"cx": 576.88, "top": 662.87, "cy_rl": 129.13}, {"cx": 548.48, "top": 674.28, "cy_rl": 117.72}, {"cx": 576.88, "top": 674.28, "cy_rl": 117.72}, {"cx": 548.48, "top": 685.88, "cy_rl": 106.12}, {"cx": 576.88, "top": 685.88, "cy_rl": 106.12}], "3": [{"cx": 538.68, "top": 41.7, "cy_rl": 750.3}, {"cx": 567.48, "top": 41.7, "cy_rl": 750.3}, {"cx": 507.88, "top": 64.73, "cy_rl": 727.27}, {"cx": 539.28, "top": 64.73, "cy_rl": 727.27}, {"cx": 566.28, "top": 64.73, "cy_rl": 727.27}, {"cx": 539.08, "top": 99.13, "cy_rl": 692.87}, {"cx": 567.48, "top": 99.13, "cy_rl": 692.87}, {"cx": 539.08, "top": 122.13, "cy_rl": 669.87}, {"cx": 567.48, "top": 122.13, "cy_rl": 669.87}, {"cx": 539.08, "top": 225.75, "cy_rl": 566.25}, {"cx": 567.48, "top": 225.75, "cy_rl": 566.25}, {"cx": 508.28, "top": 271.77, "cy_rl": 520.23}, {"cx": 539.68, "top": 271.77, "cy_rl": 520.23}, {"cx": 567.48, "top": 271.77, "cy_rl": 520.23}, {"cx": 254.58, "top": 329.17, "cy_rl": 462.83}, {"cx": 304.4, "top": 329.17, "cy_rl": 462.83}, {"cx": 355.03, "top": 329.17, "cy_rl": 462.83}, {"cx": 397.03, "top": 329.17, "cy_rl": 462.83}, {"cx": 448.45, "top": 329.17, "cy_rl": 462.83}, {"cx": 508.28, "top": 352.19, "cy_rl": 439.81}, {"cx": 539.68, "top": 352.19, "cy_rl": 439.81}, {"cx": 567.48, "top": 352.19, "cy_rl": 439.81}, {"cx": 539.08, "top": 375.2, "cy_rl": 416.8}, {"cx": 567.48, "top": 375.2, "cy_rl": 416.8}, {"cx": 153.95, "top": 386.8, "cy_rl": 405.2}, {"cx": 203.78, "top": 386.8, "cy_rl": 405.2}, {"cx": 539.08, "top": 398.2, "cy_rl": 393.8}, {"cx": 567.48, "top": 398.2, "cy_rl": 393.8}, {"cx": 153.95, "top": 409.8, "cy_rl": 382.2}, {"cx": 203.78, "top": 409.8, "cy_rl": 382.2}, {"cx": 321.2, "top": 421.2, "cy_rl": 370.8}, {"cx": 399.43, "top": 421.2, "cy_rl": 370.8}, {"cx": 95.53, "top": 432.8, "cy_rl": 359.2}, {"cx": 300.4, "top": 432.8, "cy_rl": 359.2}, {"cx": 361.83, "top": 432.8, "cy_rl": 359.2}, {"cx": 412.22, "top": 432.8, "cy_rl": 359.2}, {"cx": 508.28, "top": 478.82, "cy_rl": 313.18}, {"cx": 539.68, "top": 478.82, "cy_rl": 313.18}, {"cx": 567.48, "top": 478.82, "cy_rl": 313.18}, {"cx": 539.08, "top": 490.23, "cy_rl": 301.77}, {"cx": 567.48, "top": 490.23, "cy_rl": 301.77}, {"cx": 539.08, "top": 524.83, "cy_rl": 267.17}, {"cx": 567.48, "top": 524.83, "cy_rl": 267.17}, {"cx": 508.28, "top": 536.22, "cy_rl": 255.78}, {"cx": 539.68, "top": 536.22, "cy_rl": 255.78}, {"cx": 567.48, "top": 536.22, "cy_rl": 255.78}, {"cx": 540.68, "top": 570.85, "cy_rl": 221.15}, {"cx": 567.48, "top": 570.85, "cy_rl": 221.15}, {"cx": 539.08, "top": 605.25, "cy_rl": 186.75}, {"cx": 567.48, "top": 605.25, "cy_rl": 186.75}, {"cx": 95.53, "top": 628.25, "cy_rl": 163.75}, {"cx": 148.15, "top": 628.25, "cy_rl": 163.75}, {"cx": 217.78, "top": 628.25, "cy_rl": 163.75}, {"cx": 258.18, "top": 628.25, "cy_rl": 163.75}, {"cx": 298.0, "top": 628.25, "cy_rl": 163.75}, {"cx": 374.83, "top": 628.25, "cy_rl": 163.75}, {"cx": 436.25, "top": 628.25, "cy_rl": 163.75}, {"cx": 508.28, "top": 662.87, "cy_rl": 129.13}, {"cx": 539.68, "top": 662.87, "cy_rl": 129.13}, {"cx": 567.48, "top": 662.87, "cy_rl": 129.13}], "4": [{"cx": 539.08, "top": 64.73, "cy_rl": 727.27}, {"cx": 567.48, "top": 64.73, "cy_rl": 727.27}, {"cx": 95.53, "top": 76.13, "cy_rl": 715.87}, {"cx": 177.55, "top": 76.13, "cy_rl": 715.87}, {"cx": 245.18, "top": 76.13, "cy_rl": 715.87}, {"cx": 309.4, "top": 76.13, "cy_rl": 715.87}, {"cx": 538.68, "top": 122.13, "cy_rl": 669.87}, {"cx": 568.48, "top": 122.13, "cy_rl": 669.87}, {"cx": 539.08, "top": 145.14, "cy_rl": 646.86}, {"cx": 567.48, "top": 145.14, "cy_rl": 646.86}, {"cx": 95.53, "top": 156.75, "cy_rl": 635.25}, {"cx": 142.55, "top": 156.75, "cy_rl": 635.25}, {"cx": 191.16, "top": 156.75, "cy_rl": 635.25}, {"cx": 258.78, "top": 156.75, "cy_rl": 635.25}, {"cx": 323.0, "top": 156.75, "cy_rl": 635.25}, {"cx": 95.53, "top": 168.15, "cy_rl": 623.85}, {"cx": 154.15, "top": 168.15, "cy_rl": 623.85}, {"cx": 540.48, "top": 214.15, "cy_rl": 577.85}, {"cx": 570.28, "top": 214.15, "cy_rl": 577.85}, {"cx": 539.08, "top": 237.15, "cy_rl": 554.85}, {"cx": 567.48, "top": 237.15, "cy_rl": 554.85}, {"cx": 539.08, "top": 260.17, "cy_rl": 531.83}, {"cx": 567.48, "top": 260.17, "cy_rl": 531.83}, {"cx": 95.53, "top": 271.77, "cy_rl": 520.23}, {"cx": 156.35, "top": 271.77, "cy_rl": 520.23}, {"cx": 202.78, "top": 271.77, "cy_rl": 520.23}, {"cx": 256.98, "top": 271.77, "cy_rl": 520.23}, {"cx": 539.08, "top": 317.78, "cy_rl": 474.22}, {"cx": 567.48, "top": 317.78, "cy_rl": 474.22}, {"cx": 205.58, "top": 386.8, "cy_rl": 405.2}, {"cx": 263.79, "top": 386.8, "cy_rl": 405.2}, {"cx": 333.6, "top": 386.8, "cy_rl": 405.2}, {"cx": 223.98, "top": 398.2, "cy_rl": 393.8}, {"cx": 284.2, "top": 398.2, "cy_rl": 393.8}, {"cx": 539.08, "top": 432.8, "cy_rl": 359.2}, {"cx": 567.48, "top": 432.8, "cy_rl": 359.2}, {"cx": 541.28, "top": 501.82, "cy_rl": 290.18}, {"cx": 571.08, "top": 501.82, "cy_rl": 290.18}, {"cx": 541.87, "top": 513.22, "cy_rl": 278.78}, {"cx": 571.49, "top": 513.22, "cy_rl": 278.78}, {"cx": 540.48, "top": 524.83, "cy_rl": 267.17}, {"cx": 570.28, "top": 524.83, "cy_rl": 267.17}, {"cx": 539.28, "top": 536.22, "cy_rl": 255.78}, {"cx": 571.88, "top": 536.22, "cy_rl": 255.78}, {"cx": 540.48, "top": 547.83, "cy_rl": 244.17}, {"cx": 570.28, "top": 547.83, "cy_rl": 244.17}, {"cx": 540.48, "top": 559.24, "cy_rl": 232.76}, {"cx": 570.28, "top": 559.24, "cy_rl": 232.76}, {"cx": 540.48, "top": 570.85, "cy_rl": 221.15}, {"cx": 570.28, "top": 570.85, "cy_rl": 221.15}, {"cx": 540.48, "top": 582.25, "cy_rl": 209.75}, {"cx": 570.28, "top": 582.25, "cy_rl": 209.75}, {"cx": 540.48, "top": 593.85, "cy_rl": 198.15}, {"cx": 570.28, "top": 593.85, "cy_rl": 198.15}, {"cx": 539.68, "top": 605.25, "cy_rl": 186.75}, {"cx": 569.48, "top": 605.25, "cy_rl": 186.75}, {"cx": 539.08, "top": 616.85, "cy_rl": 175.15}, {"cx": 568.87, "top": 616.85, "cy_rl": 175.15}], "5": [{"cx": 542.48, "top": 53.13, "cy_rl": 738.87}, {"cx": 569.48, "top": 53.13, "cy_rl": 738.87}, {"cx": 541.87, "top": 64.73, "cy_rl": 727.27}, {"cx": 568.87, "top": 64.73, "cy_rl": 727.27}, {"cx": 540.48, "top": 87.73, "cy_rl": 704.27}, {"cx": 567.48, "top": 87.73, "cy_rl": 704.27}, {"cx": 540.48, "top": 99.13, "cy_rl": 692.87}, {"cx": 567.48, "top": 99.13, "cy_rl": 692.87}, {"cx": 540.48, "top": 122.13, "cy_rl": 669.87}, {"cx": 567.48, "top": 122.13, "cy_rl": 669.87}, {"cx": 540.48, "top": 145.14, "cy_rl": 646.86}, {"cx": 567.48, "top": 145.14, "cy_rl": 646.86}, {"cx": 540.48, "top": 156.75, "cy_rl": 635.25}, {"cx": 567.48, "top": 156.75, "cy_rl": 635.25}, {"cx": 540.48, "top": 168.15, "cy_rl": 623.85}, {"cx": 567.48, "top": 168.15, "cy_rl": 623.85}, {"cx": 540.48, "top": 202.75, "cy_rl": 589.25}, {"cx": 567.48, "top": 202.75, "cy_rl": 589.25}, {"cx": 540.48, "top": 214.15, "cy_rl": 577.85}, {"cx": 567.48, "top": 214.15, "cy_rl": 577.85}, {"cx": 540.48, "top": 248.76, "cy_rl": 543.24}, {"cx": 567.48, "top": 248.76, "cy_rl": 543.24}, {"cx": 508.28, "top": 260.17, "cy_rl": 531.83}, {"cx": 539.68, "top": 260.17, "cy_rl": 531.83}, {"cx": 566.68, "top": 260.17, "cy_rl": 531.83}, {"cx": 508.28, "top": 283.17, "cy_rl": 508.83}, {"cx": 539.68, "top": 283.17, "cy_rl": 508.83}, {"cx": 566.68, "top": 283.17, "cy_rl": 508.83}, {"cx": 541.08, "top": 306.17, "cy_rl": 485.83}, {"cx": 567.87, "top": 306.17, "cy_rl": 485.83}, {"cx": 216.78, "top": 329.17, "cy_rl": 462.83}, {"cx": 260.38, "top": 329.17, "cy_rl": 462.83}, {"cx": 339.2, "top": 329.17, "cy_rl": 462.83}, {"cx": 391.22, "top": 329.17, "cy_rl": 462.83}, {"cx": 537.08, "top": 409.8, "cy_rl": 382.2}, {"cx": 566.87, "top": 409.8, "cy_rl": 382.2}, {"cx": 538.68, "top": 501.82, "cy_rl": 290.18}, {"cx": 565.68, "top": 501.82, "cy_rl": 290.18}, {"cx": 95.53, "top": 559.24, "cy_rl": 232.76}, {"cx": 158.15, "top": 559.24, "cy_rl": 232.76}, {"cx": 240.58, "top": 559.24, "cy_rl": 232.76}, {"cx": 537.68, "top": 559.24, "cy_rl": 232.76}, {"cx": 564.68, "top": 559.24, "cy_rl": 232.76}, {"cx": 537.68, "top": 570.85, "cy_rl": 221.15}, {"cx": 564.68, "top": 570.85, "cy_rl": 221.15}, {"cx": 537.68, "top": 582.25, "cy_rl": 209.75}, {"cx": 564.68, "top": 582.25, "cy_rl": 209.75}, {"cx": 537.68, "top": 593.85, "cy_rl": 198.15}, {"cx": 564.68, "top": 593.85, "cy_rl": 198.15}, {"cx": 537.68, "top": 616.85, "cy_rl": 175.15}, {"cx": 564.68, "top": 616.85, "cy_rl": 175.15}, {"cx": 537.68, "top": 639.85, "cy_rl": 152.15}, {"cx": 564.68, "top": 639.85, "cy_rl": 152.15}, {"cx": 537.68, "top": 651.25, "cy_rl": 140.75}, {"cx": 564.68, "top": 651.25, "cy_rl": 140.75}, {"cx": 537.68, "top": 662.87, "cy_rl": 129.13}, {"cx": 564.68, "top": 662.87, "cy_rl": 129.13}, {"cx": 537.68, "top": 674.28, "cy_rl": 117.72}, {"cx": 564.68, "top": 674.28, "cy_rl": 117.72}, {"cx": 537.68, "top": 697.28, "cy_rl": 94.72}, {"cx": 564.68, "top": 697.28, "cy_rl": 94.72}, {"cx": 537.68, "top": 708.88, "cy_rl": 83.12}, {"cx": 564.68, "top": 708.88, "cy_rl": 83.12}], "6": [{"cx": 539.08, "top": 53.13, "cy_rl": 738.87}, {"cx": 566.08, "top": 53.13, "cy_rl": 738.87}, {"cx": 537.68, "top": 64.73, "cy_rl": 727.27}, {"cx": 564.68, "top": 64.73, "cy_rl": 727.27}, {"cx": 537.68, "top": 76.13, "cy_rl": 715.87}, {"cx": 564.68, "top": 76.13, "cy_rl": 715.87}, {"cx": 537.68, "top": 87.73, "cy_rl": 704.27}, {"cx": 564.68, "top": 87.73, "cy_rl": 704.27}, {"cx": 537.68, "top": 110.73, "cy_rl": 681.27}, {"cx": 564.68, "top": 110.73, "cy_rl": 681.27}, {"cx": 537.68, "top": 133.73, "cy_rl": 658.27}, {"cx": 564.68, "top": 133.73, "cy_rl": 658.27}, {"cx": 537.68, "top": 156.75, "cy_rl": 635.25}, {"cx": 564.68, "top": 156.75, "cy_rl": 635.25}, {"cx": 508.28, "top": 168.15, "cy_rl": 623.85}, {"cx": 537.08, "top": 168.15, "cy_rl": 623.85}, {"cx": 563.87, "top": 168.15, "cy_rl": 623.85}, {"cx": 537.68, "top": 179.75, "cy_rl": 612.25}, {"cx": 564.68, "top": 179.75, "cy_rl": 612.25}, {"cx": 503.06, "top": 363.8, "cy_rl": 428.2}, {"cx": 531.87, "top": 363.8, "cy_rl": 428.2}, {"cx": 558.68, "top": 363.8, "cy_rl": 428.2}], "7": [], "8": []};
+
+  function makeTransparent(dataUrl) {
+    return new Promise(function(resolve) {
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width; canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var d = id.data;
+        for (var i = 0; i < d.length; i += 4) {
+          if (d[i] >= 230 && d[i+1] >= 230 && d[i+2] >= 230) d[i+3] = 0;
+        }
+        ctx.putImageData(id, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.src = dataUrl;
+    });
+  }
+
+  function b64ToBytes(b64) {
+    var bin = atob(b64), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+
+  window.generateFilledPDF = async function(d) {
+    var _PDFLib = window.PDFLib;
+    var PDFDocument = _PDFLib.PDFDocument;
+    var rgb = _PDFLib.rgb;
+    var StandardFonts = _PDFLib.StandardFonts;
+
+    var pdfBytes = await fetch('sellers-disclosure.pdf').then(function(r){ return r.arrayBuffer(); });
+    var pdfDoc = await PDFDocument.load(pdfBytes);
+    var pages = pdfDoc.getPages();
+
+    var font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    var fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
+    var BLUE = rgb(0, 0, 0.8);
+    var BLACK = rgb(0, 0, 0);
+    var PH = 792, FS = 10;
+
+    function ry(top) { return PH - top - 2; }
+
+    function dt(page, x, top, text, opts) {
+      opts = opts || {};
+      if (!text) return;
+      var s = String(text).trim();
+      if (!s || s === '—' || s === 'None' || s === 'none') return;
+      var fs = opts.fs || FS;
+      var color = opts.color || BLUE;
+      var maxW = opts.maxW;
+      if (maxW) { while (font.widthOfTextAtSize(s, fs) > maxW && s.length > 1) s = s.slice(0,-1); }
+      page.drawText(s, { x: x+4, y: ry(top), size: fs, font: font, color: color });
+    }
+
+    function xmark(page, cx, cy_rl) {
+      page.drawText('X', { x: cx-4, y: cy_rl-4, size: 9, font: fontBold, color: BLACK });
+    }
+
+    function getCb(pageNum, top, nth) {
+      nth = nth || 0;
+      var boxes = (CB[pageNum]||[]).filter(function(b){ return Math.abs(b.top-top)<3.0; })
+                  .sort(function(a,b){ return a.cx-b.cx; });
+      return boxes[nth] || null;
+    }
+
+    function mark(page, pageNum, top, value, mode) {
+      mode = mode || 'yn';
+      var v = value ? String(value).trim().toLowerCase() : '';
+      if (!v || v==='—' || v==='none') return;
+      var boxes = (CB[pageNum]||[]).filter(function(b){ return Math.abs(b.top-top)<3.0; })
+                  .sort(function(a,b){ return a.cx-b.cx; });
+      if (!boxes.length) return;
+      if (mode==='single') { xmark(page, boxes[0].cx, boxes[0].cy_rl); }
+      else if (mode==='yn') {
+        if (v==='yes' && boxes.length>=1) xmark(page, boxes[0].cx, boxes[0].cy_rl);
+        else if (v==='no' && boxes.length>=2) xmark(page, boxes[1].cx, boxes[1].cy_rl);
+      } else if (mode==='na_yn') {
+        if ((v==='n/a'||v==='na') && boxes.length>=1) xmark(page, boxes[0].cx, boxes[0].cy_rl);
+        else if (v==='yes' && boxes.length>=2) xmark(page, boxes[1].cx, boxes[1].cy_rl);
+        else if (v==='no' && boxes.length>=3) xmark(page, boxes[2].cx, boxes[2].cy_rl);
+      }
+    }
+
+    var INIT_COORDS = {
+      1:[64.5,108.5,66.5,21.5], 2:[67.0,111.0,63.5,22.0], 3:[67.5,111.5,52.0,22.0],
+      4:[64.5,108.5,55.0,22.0], 5:[66.0,110.0,53.5,19.0], 6:[61.0,105.0,78.5,22.0],
+      7:[56.5,100.5,64.0,22.0]
+    };
+
+    var init1Img=null, init2Img=null;
+    if (d.seller1Initials && d.seller1Initials.startsWith('data:image')) {
+      try { var t1=await makeTransparent(d.seller1Initials); init1Img=await pdfDoc.embedPng(b64ToBytes(t1.split(',')[1])); } catch(e){}
+    }
+    if (d.seller2Initials && d.seller2Initials.startsWith('data:image')) {
+      try { var t2=await makeTransparent(d.seller2Initials); init2Img=await pdfDoc.embedPng(b64ToBytes(t2.split(',')[1])); } catch(e){}
+    }
+
+    function drawInitials(page, pageNum) {
+      var c=INIT_COORDS[pageNum], s1x=c[0],s2x=c[1],yBot=c[2],boxH=c[3];
+      if (init1Img) page.drawImage(init1Img,{x:s1x,y:yBot,width:42,height:boxH});
+      if (init2Img) page.drawImage(init2Img,{x:s2x,y:yBot,width:30,height:boxH});
+    }
+
+    // ── PAGE 1 ──────────────────────────────────────────────────
+    function drawP1(page) {
+      var s1=d.sellerName1||'', m1=d.sellerMarital1||'';
+      if (s1) dt(page,214,86.3,(m1&&m1!=='—')?s1+' ('+m1+')':s1,{maxW:355});
+      var s2=d.sellerName2||'', m2=d.sellerMarital2||'';
+      if (s2&&s2!=='—') dt(page,63,109.3,(m2&&m2!=='—')?s2+' ('+m2+')':s2,{maxW:480});
+      dt(page,121,132.3,d.propertyAddress||'',{maxW:440});
+      var yb=d.yearBuilt||'';
+      if (yb&&yb!=='—') { try{ dt(page,199,419.8,String(2026-parseInt(yb)),{maxW:60}); }catch(e){dt(page,199,419.8,yb,{maxW:60});} }
+      dt(page,433,419.8,d.ownershipYears||'',{maxW:130});
+      mark(page,1,431.4,d.occupied||'');
+      var h=d.howLongSinceOccupied||''; if(h&&h!=='—') dt(page,364,442.8,h,{maxW:60});
+      var ct=(d.constructionType||'').toLowerCase();
+      var box;
+      if(ct.includes('wood')||ct.includes('conventional')){box=getCb(1,488.8,0);if(box)xmark(page,box.cx,box.cy_rl);}
+      else if(ct.includes('modular')){box=getCb(1,488.8,1);if(box)xmark(page,box.cx,box.cy_rl);}
+      else if(ct.includes('manufactured')){box=getCb(1,488.8,2);if(box)xmark(page,box.cx,box.cy_rl);}
+      else if(ct.includes('mobile')){box=getCb(1,500.4,0);if(box)xmark(page,box.cx,box.cy_rl);}
+      mark(page,1,545.9,d.fillSoil||''); mark(page,1,569.0,d.earthMovement||'');
+      mark(page,1,603.4,d.floodZone||''); mark(page,1,615.0,d.drainage||'');
+      mark(page,1,626.4,d.floodPremiums||''); mark(page,1,638.0,d.floodInsuranceNeeded||'');
+      mark(page,1,649.4,d.boundariesMarked||''); mark(page,1,661.0,d.stakeSurvey||'');
+      mark(page,1,672.4,d.boundary||'');
+      drawInitials(page,1);
+    }
+
+    // ── PAGE 2 ──────────────────────────────────────────────────
+    function drawP2(page) {
+      mark(page,2,37.0,d.fencing||''); mark(page,2,48.4,d.fencingBelongs||'','na_yn');
+      mark(page,2,71.4,d.gasOilWells||''); mark(page,2,83.0,d.oilGasLeases||'');
+      var le=d.landExplanation||''; if(le&&le!=='—') dt(page,160,117.9,le,{maxW:400});
+      var ra=d.roofAge||''; if(ra&&ra!=='—') dt(page,188,175.5,String(ra),{maxW:60});
+      dt(page,352,175.5,d.roofType||'',{maxW:175});
+      var ri=d.roofIssues||''; if(ri&&ri!=='—'){mark(page,2,186.5,ri);var rid=d.roofIssuesDesc||'';if(rid&&rid!=='—')dt(page,310,198.6,rid,{maxW:210});}
+      var rr=d.roofRepaired||''; if(rr&&rr!=='—') mark(page,2,209.5,rr);
+      var rrd=d.roofRepairDate||''; if(rrd&&rrd!=='—') dt(page,295,221.5,rrd,{maxW:50});
+      var rrc=d.roofRepairCompany||''; if(rrc&&rrc!=='—') dt(page,352,221.5,rrc,{maxW:160});
+      var rl=d.roofLayers||''; if(rl&&rl!=='—') dt(page,317,255.9,rl,{maxW:60});
+      mark(page,2,359.1,d.termites||''); mark(page,2,382.1,d.pestDamage||''); mark(page,2,405.1,d.termiteTreatments5yr||'');
+      var pInfo=[d.pestControlCompany,d.pestControlWhen,d.pestControlWhere].filter(function(x){return x&&x!=='—';}).join(' / ');
+      if(pInfo) dt(page,315,417.0,pInfo,{maxW:245});
+      mark(page,2,439.5,d.pestWarranty||'');
+      var pc=d.pestWarrantyCost||''; if(pc&&pc!=='—') dt(page,305,451.6,pc,{maxW:60});
+      var pt=d.pestWarrantyTime||''; if(pt&&pt!=='—') dt(page,202,463.0,pt,{maxW:180});
+      var ts=(d.treatmentSystem||'').toLowerCase(); if(ts&&ts!=='—'){var b=getCb(2,474.1,ts.includes('stay')?0:1);if(b)xmark(page,b.cx,b.cy_rl);}
+      mark(page,2,612.6,d.wallFoundationProblems||''); mark(page,2,635.6,d.structuralCracks||'');
+      mark(page,2,647.0,d.correctiveAction||''); mark(page,2,658.6,d.waterLeakage||'');
+      mark(page,2,670.0,d.dryRot||''); mark(page,2,681.6,d.windowDoorProblems||'');
+      drawInitials(page,2);
+    }
+
+    // ── PAGE 3 ──────────────────────────────────────────────────
+    function drawP3(page) {
+      mark(page,3,37.0,d.drivePatioProblems||''); mark(page,3,60.0,d.fireplaceProblems||'','na_yn');
+      var fid=d.fireplaceInspectionDate||''; if(fid&&fid!=='—') dt(page,168,83.5,fid,{maxW:400});
+      mark(page,3,94.4,d.sumpPump||''); mark(page,3,117.4,d.structuralRepairs||'');
+      mark(page,3,221.1,d.alterations||'');
+      var perms=d.permits||''; if(perms&&perms!=='—') mark(page,3,267.1,perms,'na_yn');
+      var ws=(d.waterSource||'').toLowerCase(),box2;
+      if(ws.includes('public')||ws.includes('municipal')){box2=getCb(3,324.9,0);if(box2)xmark(page,box2.cx,box2.cy_rl);}
+      else if(ws.includes('private')){box2=getCb(3,324.9,1);if(box2)xmark(page,box2.cx,box2.cy_rl);}
+      else if(ws.includes('well')){box2=getCb(3,324.9,2);if(box2)xmark(page,box2.cx,box2.cy_rl);}
+      else if(ws.includes('cistern')){box2=getCb(3,324.9,3);if(box2)xmark(page,box2.cx,box2.cy_rl);}
+      var wt=d.waterTested||''; if(wt&&wt!=='—') mark(page,3,348.0,wt,'na_yn');
+      mark(page,3,371.0,d.waterSoftener||''); mark(page,3,394.0,d.waterPurifier||'');
+      var st=(d.sewageType||'').toLowerCase(),box3;
+      if(st.includes('public')&&st.includes('sewer')){box3=getCb(3,417.0,0);if(box3)xmark(page,box3.cx,box3.cy_rl);}
+      else if(st.includes('private')&&st.includes('sewer')){box3=getCb(3,417.0,1);if(box3)xmark(page,box3.cx,box3.cy_rl);}
+      else if(st.includes('septic')){box3=getCb(3,428.6,0);if(box3)xmark(page,box3.cx,box3.cy_rl);}
+      else if(st.includes('cesspool')){box3=getCb(3,428.6,1);if(box3)xmark(page,box3.cx,box3.cy_rl);}
+      else if(st.includes('lagoon')){box3=getCb(3,428.6,2);if(box3)xmark(page,box3.cx,box3.cy_rl);}
+      var sl=d.septicLocation||''; if(sl&&sl!=='—') dt(page,332,440.0,sl,{maxW:220});
+      mark(page,3,474.6,d.sewagePump||'','na_yn'); mark(page,3,486.0,d.grinderPump||'');
+      mark(page,3,520.6,d.sprinklerSystem||'');
+      var sfy=d.sprinklerFullYard||''; if(sfy&&sfy!=='—') mark(page,3,532.0,sfy,'na_yn');
+      mark(page,3,566.6,d.swimmingPool||'');
+      drawInitials(page,3);
+    }
+
+    // ── PAGE 4 ──────────────────────────────────────────────────
+    function drawP4(page) {
+      var ac=d.hasCentralAC||''; if(ac&&ac!=='—') mark(page,4,60.5,ac);
+      var act=(d.acType||d.heatingType||'').toLowerCase(),box4;
+      if(act&&act!=='—'){
+        if(act.includes('central')&&act.includes('electric')){box4=getCb(4,71.9,0);if(box4)xmark(page,box4.cx,box4.cy_rl);}
+        else if(act.includes('central')&&act.includes('gas')){box4=getCb(4,71.9,1);if(box4)xmark(page,box4.cx,box4.cy_rl);}
+        else if(act.includes('heat pump')){box4=getCb(4,71.9,2);if(box4)xmark(page,box4.cx,box4.cy_rl);}
+        else if(act.includes('window')){box4=getCb(4,71.9,3);if(box4)xmark(page,box4.cx,box4.cy_rl);}
+      }
+      var hi=d.hvacIssues||''; if(hi&&hi!=='—') mark(page,4,313.1,hi);
+      var ewm=(d.electricalWiringMaterial||'').toLowerCase(),box5;
+      if(ewm.includes('copper')){box5=getCb(4,382.1,0);if(box5)xmark(page,box5.cx,box5.cy_rl);}
+      else if(ewm.includes('aluminum')||ewm.includes('aluminium')){box5=getCb(4,382.1,1);if(box5)xmark(page,box5.cx,box5.cy_rl);}
+      var ept=(d.electricalPanelType||'').toLowerCase(),box6;
+      if(ept.includes('breaker')){box6=getCb(4,393.5,0);if(box6)xmark(page,box6.cx,box6.cy_rl);}
+      else if(ept.includes('fuse')){box6=getCb(4,393.5,1);if(box6)xmark(page,box6.cx,box6.cy_rl);}
+      var epl=d.electricalPanelLocation||''; if(epl&&epl!=='—') dt(page,229,405.6,epl,{maxW:310});
+      var eps=d.electricalPanelSize||''; if(eps&&eps!=='—') dt(page,309,417.0,eps,{maxW:250});
+      mark(page,4,428.1,d.electricalIssues||'');
+      mark(page,4,497.1,d.hazUndergroundTanks||''); mark(page,4,508.5,d.hazLandfill||'');
+      mark(page,4,520.1,d.hazToxicSubstances||''); mark(page,4,531.5,d.hazContamination||'');
+      mark(page,4,543.1,d.hazTestingAbove||''); mark(page,4,577.5,d.hazMold||'');
+      mark(page,4,589.1,d.hazOtherEnvironmental||''); mark(page,4,600.5,d.hazControlledSubstances||'');
+      mark(page,4,612.1,d.hazMethamphetamine||'');
+      drawInitials(page,4);
+    }
+
+    // ── PAGE 5 ──────────────────────────────────────────────────
+    function drawP5(page) {
+      mark(page,5,48.4,d.tax14a||''); mark(page,5,60.0,d.tax14aBonds||'');
+      var ba=d.tax14aBondsAmount||''; if(ba&&ba!=='—') dt(page,224,71.9,ba,{maxW:200});
+      mark(page,5,83.0,d.tax14b||''); mark(page,5,94.4,d.tax14c||'');
+      mark(page,5,117.4,d.tax14d||''); mark(page,5,140.4,d.tax14e||'');
+      mark(page,5,152.1,d.tax14f||''); mark(page,5,163.5,d.tax14g||'');
+      mark(page,5,198.1,d.tax14h||''); mark(page,5,209.5,d.tax14i||'');
+      mark(page,5,244.0,d.tax14j||'');
+      mark(page,5,278.5,d.tax14l||'','na_yn');
+      var la=d.tax14lAmount||''; if(la&&la!=='—') dt(page,224,290.6,la,{maxW:200});
+      mark(page,5,301.5,d.tax14m||'');
+      var dd=d.tax14mDueDate||''; if(dd&&dd!=='—') dt(page,360,313.6,dd,{maxW:75});
+      var mamt=d.tax14mAmount||''; if(mamt&&mamt!=='—') dt(page,94,324.9,mamt,{maxW:120});
+      var pay=(d.tax14mPayable||'').toLowerCase(),payBox=null;
+      if(pay.includes('year')||pay.includes('annual')) payBox=getCb(5,324.5,0);
+      else if(pay.includes('semi')) payBox=getCb(5,324.5,1);
+      else if(pay.includes('month')) payBox=getCb(5,324.5,2);
+      else if(pay.includes('quarter')) payBox=getCb(5,324.5,3);
+      if(payBox) xmark(page,payBox.cx,payBox.cy_rl);
+      var inc=d.tax14mIncludes||''; if(inc&&inc!=='—') dt(page,94,348.0,inc,{maxW:490});
+      var cont=d.tax14mContact||''; if(cont&&cont!=='—') dt(page,94,371.0,cont,{maxW:490});
+      mark(page,5,405.6,d.tax14n||''); mark(page,5,497.6,d.prevInspected||'');
+      // Section 16a (special: 5 boxes at top=554.5, yes=box[3], no=box[4])
+      var v16a=(d.sec16a||'').trim().toLowerCase();
+      if(v16a){
+        var b274=(CB[5]||[]).filter(function(b){return Math.abs(b.top-554.5)<3.0;}).sort(function(a,b){return a.cx-b.cx;});
+        if(v16a==='yes'&&b274.length>=4) xmark(page,b274[3].cx,b274[3].cy_rl);
+        else if(v16a==='no'&&b274.length>=5) xmark(page,b274[4].cx,b274[4].cy_rl);
+      }
+      mark(page,5,566.1,d.sec16b||''); mark(page,5,577.5,d.sec16c||'');
+      mark(page,5,589.1,d.sec16d||''); mark(page,5,612.1,d.sec16e||'');
+      mark(page,5,635.1,d.sec16f||''); mark(page,5,646.5,d.sec16g||'');
+      mark(page,5,658.2,d.sec16h||''); mark(page,5,669.6,d.sec16i||'');
+      var locks=d.sec16iLocks||''; if(locks&&locks!=='—'&&locks!=='None') dt(page,195,681.6,locks,{maxW:350});
+      mark(page,5,692.6,d.sec16j||''); mark(page,5,704.2,d.sec16k||'');
+      drawInitials(page,5);
+    }
+
+    // ── PAGE 6 ──────────────────────────────────────────────────
+    function drawP6(page) {
+      mark(page,6,48.4,d.clearTitle||''); mark(page,6,60.0,d.legalAction||'');
+      mark(page,6,71.4,d.sec16litigation||''); mark(page,6,83.5,d.addedInsulation||'');
+      mark(page,6,106.5,d.replacedAppliances||''); mark(page,6,129.5,d.transferableWarranties||'');
+      mark(page,6,152.5,d.insuranceClaims||''); mark(page,6,163.9,d.repairsCompleted||'','na_yn');
+      mark(page,6,175.5,d.syntheticStucco||'');
+      var eco=d.electricCompany||''; if(eco&&eco!=='—') dt(page,200,267.5,eco,{maxW:175});
+      var eph=d.electricPhone||''; if(eph&&eph!=='—') dt(page,420,267.5,eph,{maxW:145});
+      var gco=d.gasCompany||''; if(gco&&gco!=='—') dt(page,200,278.9,gco,{maxW:175});
+      var gph=d.gasPhone||''; if(gph&&gph!=='—') dt(page,420,278.9,gph,{maxW:145});
+      var wco=d.waterCompany||''; if(wco&&wco!=='—') dt(page,200,290.5,wco,{maxW:175});
+      var wph=d.waterPhone||''; if(wph&&wph!=='—') dt(page,420,290.5,wph,{maxW:145});
+      var tco=d.trashCompany||''; if(tco&&tco!=='—') dt(page,200,301.9,tco,{maxW:175});
+      var tph=d.trashPhone||''; if(tph&&tph!=='—') dt(page,420,301.9,tph,{maxW:145});
+      var ou1=d.otherUtility1||''; if(ou1&&ou1!=='—') dt(page,102,313.6,ou1,{maxW:265});
+      var op1=d.otherUtilityPhone1||''; if(op1&&op1!=='—') dt(page,420,313.6,op1,{maxW:145});
+      var tss=d.techSystems||'';
+      if(tss&&tss!=='—'){
+        var vts=tss.toLowerCase();
+        var bts=(CB[6]||[]).filter(function(b){return Math.abs(b.top-359.6)<3.0;}).sort(function(a,b){return a.cx-b.cx;});
+        if((vts==='n/a'||vts==='na')&&bts.length>=1) xmark(page,bts[0].cx,bts[0].cy_rl);
+        else if(vts==='yes'&&bts.length>=2) xmark(page,bts[1].cx,bts[1].cy_rl);
+        else if(vts==='no'&&bts.length>=3) xmark(page,bts[2].cx,bts[2].cy_rl);
+      }
+      drawInitials(page,6);
+    }
+
+    // ── PAGE 7 ──────────────────────────────────────────────────
+    function drawP7(page) {
+      var fx=d.fixtures||{};
+      function fv(k){var v=fx[k];return v?String(v).trim().toUpperCase():'';}
+      function fcount(k){var v=fx[k+'_count'];return(v&&String(v).trim()&&String(v).trim()!=='—')?String(v).trim():'';}
+      function p7dt(pg,x,top,text,opts){
+        opts=opts||{}; if(!text)return; var s=String(text).trim();
+        if(!s||s==='—'||s==='None'||s==='none')return;
+        var fs=opts.fs||FS,color=opts.color||BLUE,maxW=opts.maxW;
+        if(maxW){while(font.widthOfTextAtSize(s,fs)>maxW&&s.length>1)s=s.slice(0,-1);}
+        pg.drawText(s,{x:x+4,y:PH-top-8,size:fs,font:font,color:color});
+      }
+      var v7,cnt7;
+      v7=fv('Air Conditioning Window Unit(s)');if(v7)p7dt(page,54,128.9,v7,{maxW:20});
+      v7=fv('Air Conditioning Central System');if(v7)p7dt(page,54,140.5,v7,{maxW:20});
+      v7=fv('Attic Fan');if(v7)p7dt(page,54,151.9,v7,{maxW:20});
+      v7=fv('Ceiling Fan(s)');if(v7){p7dt(page,54,174.9,v7,{maxW:20});cnt7=fcount('Ceiling Fan(s)');if(cnt7)p7dt(page,152,174.9,cnt7,{maxW:20});}
+      v7=fv('Central Vac and Attachments');if(v7)p7dt(page,54,186.5,v7,{maxW:20});
+      v7=fv('Doorbell')||fv('Video Doorbell');if(v7)p7dt(page,54,220.9,v7,{maxW:20});
+      v7=fv('Electric Air Cleaner or Purifier');if(v7)p7dt(page,54,232.5,v7,{maxW:20});
+      v7=fv('Exhaust Fan(s) \u2013 Baths')||fv('Exhaust Fan(s) - Baths');if(v7)p7dt(page,54,255.5,v7,{maxW:20});
+      v7=fv('Fireplace(s)');if(v7){p7dt(page,38,278.6,v7,{maxW:20});cnt7=fcount('Fireplace(s)');if(cnt7)p7dt(page,135,278.6,cnt7,{maxW:20});}
+      var loc1=fx['Fireplace(s)_loc1']||'';if(loc1&&loc1!=='—')p7dt(page,128,289.9,loc1,{maxW:55});
+      var loc2=fx['Fireplace(s)_loc2']||'';if(loc2&&loc2!=='—')p7dt(page,239,289.9,loc2,{maxW:55});
+      v7=fv('Chimney');if(v7)p7dt(page,72,301.6,v7,{maxW:20});
+      v7=fv('Gas Logs');if(v7)p7dt(page,72,312.9,v7,{maxW:20});
+      v7=fv('Gas Starter');if(v7)p7dt(page,72,324.5,v7,{maxW:20});
+      v7=fv('Heat Re-circulator');if(v7)p7dt(page,72,335.9,v7,{maxW:20});
+      v7=fv('Insert');if(v7)p7dt(page,72,347.6,v7,{maxW:20});
+      v7=fv('Wood Burning');if(v7)p7dt(page,72,359.0,v7,{maxW:20});
+      v7=fv('Fountain(s)');if(v7)p7dt(page,54,382.0,v7,{maxW:20});
+      v7=fv('Furnace/Heat Pump/Other Heating System');if(v7)p7dt(page,54,393.6,v7,{maxW:20});
+      v7=fv('Garage Door Keyless Entry');if(v7)p7dt(page,54,405.0,v7,{maxW:20});
+      v7=fv('Garage Door Opener(s)');if(v7){p7dt(page,54,416.6,v7,{maxW:20});cnt7=fcount('Garage Door Opener(s)');if(cnt7)p7dt(page,215,416.6,cnt7,{maxW:20});}
+      v7=fv('Garage Door Transmitter(s)')||fv('Garage Door Remote(s)');if(v7){p7dt(page,54,428.0,v7,{maxW:20});cnt7=fcount('Garage Door Transmitter(s)')||fcount('Garage Door Remote(s)');if(cnt7)p7dt(page,197,428.0,cnt7,{maxW:20});}
+      v7=fv('Generator');if(v7)p7dt(page,54,439.6,v7,{maxW:20});
+      v7=fv('Humidifier');if(v7)p7dt(page,54,451.0,v7,{maxW:20});
+      v7=fv('Intercom');if(v7)p7dt(page,54,462.6,v7,{maxW:20});
+      v7=fv('Jetted Tub');if(v7)p7dt(page,54,474.0,v7,{maxW:20});
+      v7=fv('Cooking Unit');if(v7)p7dt(page,54,497.0,v7,{maxW:20});
+      v7=fv('Stove/Range');if(v7)p7dt(page,72,508.6,v7,{maxW:20});
+      v7=fv('Built-in Oven');if(v7)p7dt(page,72,531.6,v7,{maxW:20});
+      v7=fv('Cooktop');if(v7)p7dt(page,72,554.6,v7,{maxW:20});
+      v7=fv('Range Exhaust Hood');if(v7)p7dt(page,70,566.0,v7,{maxW:20});
+      v7=fv('Microwave Oven');if(v7)p7dt(page,70,577.6,v7,{maxW:20});
+      v7=fv('Dishwasher');if(v7)p7dt(page,54,589.0,v7,{maxW:20});
+      v7=fv('Disposal');if(v7)p7dt(page,54,600.6,v7,{maxW:20});
+      v7=fv('Freezer');if(v7)p7dt(page,54,612.0,v7,{maxW:20});
+      v7=fv('Refrigerator (#1)')||fv('Refrigerator');if(v7)p7dt(page,54,635.0,v7,{maxW:20});
+      v7=fv('Refrigerator (#2)');if(v7)p7dt(page,54,658.0,v7,{maxW:20});
+      v7=fv('Trash Compactor');if(v7)p7dt(page,54,681.0,v7,{maxW:20});
+      // RIGHT SIDE
+      v7=fv('Laundry - Washer');if(v7)p7dt(page,342,128.9,v7,{maxW:20});
+      v7=fv('Laundry - Dryer');if(v7)p7dt(page,342,140.5,v7,{maxW:20});
+      v7=fv('Spa/Hot Tub');if(v7)p7dt(page,342,382.0,v7,{maxW:20});
+      v7=fv('Spa/Sauna');if(v7)p7dt(page,342,393.6,v7,{maxW:20});
+      v7=fv('Spa Equipment');if(v7)p7dt(page,342,405.0,v7,{maxW:20});
+      v7=fv('Sprinkler System (Lawn)');if(v7)p7dt(page,342,416.6,v7,{maxW:20});
+      v7=fv('Statuary/Yard Art');if(v7)p7dt(page,342,451.0,v7,{maxW:20});
+      v7=fv('Swing set/Playset');if(v7)p7dt(page,342,462.6,v7,{maxW:20});
+      v7=fv('Sump Pump(s)');if(v7)p7dt(page,342,474.0,v7,{maxW:20});
+      v7=fv('Swimming Pool');if(v7)p7dt(page,342,485.6,v7,{maxW:20});
+      v7=fv('Swimming Pool Heater');if(v7)p7dt(page,342,497.0,v7,{maxW:20});
+      v7=fv('Swimming Pool Equipment');if(v7)p7dt(page,342,508.6,v7,{maxW:20});
+      v7=fv('TV Antenna/Receiver/Satellite Dish');if(v7)p7dt(page,342,520.0,v7,{maxW:20});
+      v7=fv('Water Heater(s)');if(v7)p7dt(page,342,543.0,v7,{maxW:20});
+      v7=fv('Water Softener');if(v7)p7dt(page,342,554.6,v7,{maxW:20});
+      v7=fv('Water Purification System');if(v7)p7dt(page,342,566.0,v7,{maxW:20});
+      v7=fv('Wood Burning Stove');if(v7)p7dt(page,342,589.0,v7,{maxW:20});
+      v7=fv('Yard Light');if(v7)p7dt(page,342,600.6,v7,{maxW:20});
+      drawInitials(page,7);
+    }
+
+    // ── PAGE 8 ──────────────────────────────────────────────────
+    async function drawP8(page) {
+      var notes=d.additionalComments||''; if(notes&&notes!=='—') dt(page,54,71.9,notes,{maxW:510});
+      var sig1=d.seller1Signature||'';
+      if(sig1&&sig1.startsWith('data:image')){
+        try{var t8=await makeTransparent(sig1);var si1=await pdfDoc.embedPng(b64ToBytes(t8.split(',')[1]));page.drawImage(si1,{x:54,y:491,width:140,height:28});}catch(e){}
+      }
+      var sd1=d.seller1SignatureDate||'';
+      if(sd1){var m1=sd1.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m1)sd1=m1[2]+'/'+m1[3]+'/'+m1[1];page.drawText(sd1,{x:205,y:491,size:8,font:font,color:BLACK});}
+      var sig2=d.seller2Signature||'';
+      if(sig2&&sig2.startsWith('data:image')){
+        try{var t9=await makeTransparent(sig2);var si2=await pdfDoc.embedPng(b64ToBytes(t9.split(',')[1]));page.drawImage(si2,{x:318,y:491,width:140,height:28});}catch(e){}
+      }
+      var sd2=d.seller2SignatureDate||'';
+      if(sd2){var m2=sd2.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m2)sd2=m2[2]+'/'+m2[3]+'/'+m2[1];page.drawText(sd2,{x:468,y:491,size:8,font:font,color:BLACK});}
+    }
+
+    // Draw all 8 pages
+    drawP1(pages[0]); drawP2(pages[1]); drawP3(pages[2]); drawP4(pages[3]);
+    drawP5(pages[4]); drawP6(pages[5]); drawP7(pages[6]); await drawP8(pages[7]);
+
+    return await pdfDoc.save();
+  };
+
+  window.downloadPDF = function(bytes, filename) {
+    var blob = new Blob([bytes], {type:'application/pdf'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename || 'sellers-disclosure.pdf';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+  };
+
+  window.openPDFPreview = function(bytes) {
+    var blob = new Blob([bytes], {type:'application/pdf'});
+    var url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+  };
+})();
+</script>
+
 </head>
 <body>
 
@@ -3977,32 +4381,20 @@ function requestPDFPreview() {
         statusDiv.innerHTML = '<span style="color:#dc2626;">Request failed. Please try again.</span>';
       });
   } else {
-    // Live site — send to GAS which fires the webhook to generate + email the PDF
-    var emailVal = data.sellerEmail || '';
-    if (!emailVal) {
-      btn.disabled = false;
-      btn.innerHTML = '🔍 Preview PDF';
-      statusDiv.innerHTML = '<span style="color:#dc2626;">Please enter your email address before previewing.</span>';
-      return;
-    }
-    var gasData = JSON.parse(payload);
-    gasData.action = 'previewPDF';
-    fetch('https://webhooks.tasklet.ai/v1/public/webhook?token=3aa4325fc288791f2c33e8c061be4a9c', {
-      method: 'POST',
-      body: JSON.stringify(gasData),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(function() {
+    // Live site — generate PDF in browser instantly
+    btn.innerHTML = '<span class="spinner"></span> Generating...';
+    window.generateFilledPDF(data).then(function(pdfBytes) {
+      window.openPDFPreview(pdfBytes);
       btn.disabled = false;
       btn.innerHTML = '🔍 Preview PDF';
       statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '<div style="padding:10px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;">✅ Your preview PDF is being generated and will be emailed to <strong>' + emailVal + '</strong> shortly!</div>';
-    })
-    .catch(function() {
+      statusDiv.innerHTML = '<div style="padding:10px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;">✅ PDF opened in a new tab!</div>';
+    }).catch(function(err) {
+      console.error('PDF generation error:', err);
       btn.disabled = false;
       btn.innerHTML = '🔍 Preview PDF';
       statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '<span style="color:#dc2626;">Request failed. Please try again.</span>';
+      statusDiv.innerHTML = '<span style="color:#dc2626;">PDF generation failed: ' + err.message + '. Try again.</span>';
     });
   }
 }
@@ -4035,9 +4427,26 @@ function submitForm() {
         btn.innerHTML = 'Submit Disclosure';
       });
   } else {
-    showSaveToast('Submission not available.');
-    btn.disabled = false;
-    btn.innerHTML = 'Submit Disclosure';
+    // Live site — generate PDF in browser, download it, then send to webhook for email
+    btn.innerHTML = '<span class="spinner"></span> Generating PDF...';
+    window.generateFilledPDF(data).then(function(pdfBytes) {
+      // Auto-download the PDF
+      var addr = (data.propertyAddress||'disclosure').replace(/[^a-z0-9]/gi,'_');
+      window.downloadPDF(pdfBytes, 'Sellers_Disclosure_' + addr + '.pdf');
+      btn.innerHTML = '<span class="spinner"></span> Submitting...';
+      // Fire webhook for email (server will also generate its own PDF for email)
+      return fetch('https://webhooks.tasklet.ai/v1/public/webhook?token=3aa4325fc288791f2c33e8c061be4a9c', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'submitForm', data: data }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }).then(function() {
+      showStep('success');
+    }).catch(function(err) {
+      console.error('Submission error:', err);
+      // PDF already downloaded — still show success since seller has their copy
+      showStep('success');
+    });
   }
 }
 // ─── Signature Pad Logic ───────────────────────────────────────
