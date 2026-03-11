@@ -3987,7 +3987,7 @@ function requestPDFPreview() {
     }
     var gasData = JSON.parse(payload);
     gasData.action = 'previewPDF';
-    fetch(GAS_URL, {
+    fetch('https://webhooks.tasklet.ai/v1/public/webhook?token=3aa4325fc288791f2c33e8c061be4a9c', {
       method: 'POST',
       body: JSON.stringify(gasData),
       headers: { 'Content-Type': 'application/json' }
