@@ -33,6 +33,8 @@ html {
   /* ── Save & Resume ── */
   .translate-bar-spacer { flex: 1; }
 
+  .test-data-btn { display: none !important; }
+  .test-data-btn-DISABLED {
     background: #6c3483;
     color: #fff;
     border: none;
@@ -44,6 +46,7 @@ html {
     white-space: nowrap;
     transition: background 0.2s;
   }
+  .test-data-btn:hover { background: #8e44ad; }
 
   .save-draft-btn {
     background: #2a6496;
@@ -1477,6 +1480,8 @@ html {
     </div>
 
 
+
+
     <!-- 10l: Swimming pool -->
     <div class="form-group">
       <label>10l. Is there a swimming pool on the property?</label>
@@ -2686,6 +2691,7 @@ var FIXTURES_B = [
   "Other B-5",
   "Other B-6"
 ];
+
 
 
 var FIXTURE_CONDITIONS_B = {
@@ -4279,55 +4285,6 @@ function sendViaMailto(email, resumeUrl) {
 }
 
 // ── Load Test Data ──────────────────────────────────────────
-  }
-
-  // Set radio buttons
-  function setRadio(name, val) {
-    const els = document.querySelectorAll('input[name="' + name + '"]');
-    els.forEach(function(el) {
-      if (el.value === val) {
-        el.checked = true;
-        el.dispatchEvent(new Event('change', {bubbles:true}));
-      }
-    });
-  }
-
-  // Set checkboxes by value
-  function setCheck(name, values) {
-    const arr = Array.isArray(values) ? values : (values ? values.split(',') : []);
-    document.querySelectorAll('input[name="' + name + '"]').forEach(function(el) {
-      el.checked = arr.includes(el.value);
-      el.dispatchEvent(new Event('change', {bubbles:true}));
-    });
-  }
-
-  // Fill all fields from TEST_DATA
-  Object.keys(d).forEach(function(key) {
-    const val = d[key];
-    const el = document.getElementById(key);
-    if (el) {
-      if (el.type === 'radio') return; // handled by setRadio
-      set(key, val);
-    }
-    // Try as radio
-    const radios = document.querySelectorAll('input[name="' + key + '"][type="radio"]');
-    if (radios.length > 0) setRadio(key, val);
-    // Try as checkboxes
-    const checks = document.querySelectorAll('input[name="' + key + '"][type="checkbox"]');
-    if (checks.length > 0) setCheck(key, val);
-  });
-
-  // Trigger all conditional visibility updates
-  document.querySelectorAll('input[type="radio"]:checked').forEach(function(el) {
-    el.dispatchEvent(new Event('change', {bubbles:true}));
-  });
-  document.querySelectorAll('select').forEach(function(el) {
-    el.dispatchEvent(new Event('change', {bubbles:true}));
-  });
-
-  // Jump to last step
-  showStep(20);
-}
 
 // ── Save Draft to Google Sheet ──────────────────────────────
   function saveDraftToSheet() {
@@ -4391,209 +4348,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- TEST DATA LOADER (remove before production)                  -->
 <!-- ============================================================ -->
 <script>
-window.TEST_DATA = {
-  "sellerCount": "2",
-  "sellerName1": "John Smith",
-  "sellerName2": "Jane Smith",
-  "sellerName3": "",
-  "sellerMarital1": "Married",
-  "sellerMarital2": "Married",
-  "sellerMarital3": "",
-  "propStreet": "4821 Oak Ridge Drive",
-  "propCity": "Kansas City",
-  "propState": "MO",
-  "propZip": "64111",
-  "sellerEmail": "john.smith@email.com",
-  "occupied": "Yes",
-  "occupant": "Owner",
-  "ownershipYears": "12",
-  "leased": "Yes",
-  "yearBuilt": "1998",
-  "constructionType": "Wood Frame",
-  "alterations": "Yes",
-  "alterationsDesc": "Added a sunroom addition in 2018 with permits. Updated kitchen in 2020.",
-  "permits": "Yes",
-  "permitsNoDesc": "All permits obtained and finalized.",
-  "addedInsulation": "Yes",
-  "replacedAppliances": "Yes",
-  "floodZone": "Yes",
-  "floodInsuranceNeeded": "Yes",
-  "floodPremiums": "Yes",
-  "drainage": "Yes",
-  "boundary": "Yes",
-  "boundariesMarked": "Yes",
-  "boundaryDesc": "Survey completed in 2021. Stakes visible at all corners.",
-  "stakeSurvey": "Yes",
-  "ust": "Yes",
-  "fillSoil": "Yes",
-  "earthMovement": "Yes",
-  "fencing": "Yes",
-  "fencingBelongs": "Yes",
-  "fencingDetail": "6-foot wood privacy fence on all sides.",
-  "trees": "Yes",
-  "gasOilWells": "Yes",
-  "oilGasLeases": "Yes",
-  "roofAge": "7",
-  "roofType": "Asphalt Shingles",
-  "roofReplaced": "Yes",
-  "roofReplacedType": "Full",
-  "roofLayers": "2",
-  "roofProblems": "Yes",
-  "roofProblemsDate": "2023",
-  "roofIssuesDesc": "Minor leak around chimney flashing. Repaired in fall 2023.",
-  "roofRepairs": "Yes",
-  "roofRepairDate": "2023-10-15",
-  "roofRepairCompany": "Kansas City Roofing Co.",
-  "termites": "Yes",
-  "termiteTreatments5yr": "Yes",
-  "pestControlCompany": "Terminix",
-  "pestControlWhen": "2024-03-01",
-  "pestControlWhere": "Perimeter and basement",
-  "pestDamage": "Yes",
-  "infestationDesc": "Minor termite damage found in basement rim joist. Treated and repaired.",
-  "pestWarranty": "Yes",
-  "pestWarrantyTime": "5 years",
-  "pestWarrantyCost": "Annual renewal $250",
-  "transferableWarranties": "Yes",
-  "wallFoundationProblems": "Yes",
-  "structuralDesc": "Minor settling crack in northwest corner of basement wall. Sealed with epoxy injection in 2022.",
-  "structuralDamage": "Yes",
-  "structuralRepairs": "Yes",
-  "structuralCracks": "Yes",
-  "waterLeakage": "Yes",
-  "dryRot": "Yes",
-  "windowDoorProblems": "Yes",
-  "fireplaceProblems": "Yes",
-  "fireplaceLastUse": "2024-12-25",
-  "fireplaceInspectionDate": "2024-11-01",
-  "sumpPump": "Yes",
-  "sumpPumpLocation": "Northwest corner of basement",
-  "syntheticStucco": "Yes",
-  "pipeMaterial": [
-    "Copper",
-    "PVC"
-  ],
-  "plumbingProblems": "Yes",
-  "plumbingProblemsDesc": "Hot water pressure issue in master bath. Repaired Jan 2025.",
-  "waterSource": "Public",
-  "waterTested": "Yes",
-  "waterTestedDate": "2024-06-01",
-  "waterPurifier": "Yes",
-  "purifierOwnership": "Owned",
-  "waterSoftener": "Yes",
-  "softenerOwnership": "Owned",
-  "waterShutoffLocation": "Basement utility room, east wall",
-  "sewageType": "Public Sewer",
-  "sewagePump": "Yes",
-  "grinderPump": "Yes",
-  "sprinklerSystem": "Yes",
-  "sprinklerFullYard": "Yes",
-  "sprinklerLastUse": "2024-10-15",
-  "sprinklerLastService": "2024-09-01",
-  "sprinklerExplain": "6-zone system, front and back yard coverage.",
-  "backflowPreventer": "Yes",
-  "backflowLocation": "Near front hose bib",
-  "backflowCertDate": "2024-05-01",
-  "cleanoutLocation": "Left side of house near foundation",
-  "hasWaterHeater": "Yes",
-  "whGas": true,
-  "whUnit1": "2019 Rheem 50-gallon natural gas",
-  "whUnit2": "2021 Rheem 40-gallon natural gas",
-  "waterHeaterAge": "5",
-  "treatmentSystem": "Yes",
-  "correctiveAction": "Yes",
-  "hasHeat": "Yes",
-  "heatNaturalGas": true,
-  "heatUnit1": "2017 Carrier 96% AFUE furnace",
-  "heatUnit2": "2020 Carrier 96% AFUE furnace",
-  "heatCurrentlyUsed": "Yes",
-  "heatLastUseDate": "2025-02-28",
-  "hasAC": "Yes",
-  "acCentralGas": true,
-  "acUnit1": "2017 Carrier 3-ton central AC",
-  "acUnit2": "2020 Carrier 2-ton central AC",
-  "acCurrentlyUsed": "Yes",
-  "acLastUseDate": "2024-09-30",
-  "acAge": "7",
-  "hvacProblems": "Yes",
-  "hvacProblemsDesc": "AC unit 1 needed refrigerant recharge in summer 2024. Serviced by Johnson HVAC.",
-  "roomsNoHVAC": "Yes",
-  "roomsNoHVACList": "Sunroom addition",
-  "electricalPanelType": "Circuit Breakers",
-  "electricalPanelSize": "200",
-  "electricalPanelLocation": "Basement utility room",
-  "electricalWiringMaterial": "Copper",
-  "electricalIssues": "Yes",
-  "electricalDesc": "GFCIs updated in all wet areas 2023. One outlet in garage replaced.",
-  "hazRadon": "Yes",
-  "hazMold": "Yes",
-  "hazContamination": "Yes",
-  "hazLandfill": "Yes",
-  "hazMethamphetamine": "Yes",
-  "hazToxicSubstances": "Yes",
-  "hazControlledSubstances": "Yes",
-  "hazOtherEnvironmental": "Yes",
-  "hazUndergroundTanks": "Yes",
-  "hazTestingAbove": "Yes",
-  "hazExplanation": "Radon test conducted 2023, result 2.8 pCi/L (below EPA action level). Mold remediation in basement 2021.",
-  "tax14a": "Yes",
-  "tax14aBonds": "Yes",
-  "tax14aBondsAmount": "3200",
-  "tax14b": "Yes",
-  "tax14c": "Yes",
-  "tax14d": "Yes",
-  "tax14e": "Yes",
-  "tax14f": "Yes",
-  "tax14g": "Yes",
-  "tax14h": "Yes",
-  "tax14i": "Yes",
-  "tax14iDays": "14",
-  "tax14j": "Yes",
-  "tax14k": "Yes",
-  "tax14l": "Yes",
-  "tax14lAmount": "500",
-  "tax14m": "Yes",
-  "tax14mAmount": "285",
-  "tax14mPayable": "Monthly",
-  "tax14mDueDate": "1st of each month",
-  "tax14mIncludes": "Lawn care, common area maintenance, pool",
-  "tax14mSentTo": "KC HOA Management",
-  "tax14mContact": "hoa@kcmanagement.com | (816) 555-9090",
-  "tax14n": "Yes",
-  "tax14Desc": "Special assessment for neighborhood street resurfacing project paid in full 2023.",
-  "prevInspected": "Yes",
-  "repairsCompleted": "Yes",
-  "inspectionsDesc": "Full home inspection completed March 2023. All noted items repaired.",
-  "sec16litigation": "Yes",
-  "legalAction": "Yes",
-  "clearTitle": "Yes",
-  "insuranceClaims": "Yes",
-  "drivePatioProblems": "Yes",
-  "sec16Desc": "Boundary dispute with neighbor resolved 2022 via survey. Insurance claim filed 2021 for hail damage, repaired.",
-  "electricCompany": "Evergy",
-  "electricPhone": "(816) 471-5000",
-  "gasCompany": "Spire",
-  "gasPhone": "(800) 582-1234",
-  "waterCompany": "KC Water",
-  "waterPhone": "(816) 513-1313",
-  "trashCompany": "WCA Waste",
-  "trashPhone": "(816) 555-7700",
-  "otherUtility1": "Internet - Spectrum",
-  "otherUtilityPhone1": "(833) 267-6094",
-  "techSystems": "Yes",
-  "techSystemsDesc": "Ring doorbell camera (owned), Nest thermostat (owned), ADT security system (contract transferable)",
-  "securitySystem": "Yes",
-  "securityCompany": "ADT",
-  "securityContract": "Yes",
-  "swimmingPool": "Yes",
-  "recentImprovements": "2018 - Sunroom addition ($45,000)
-2020 - Kitchen remodel ($28,000)
-2021 - Basement mold remediation ($8,500)
-2022 - New fence installation ($6,200)
-2023 - Roof repair and chimney flashing
-2024 - HVAC service and refrigerant recharge",
-  "additionalComments": "Property has been well maintained. All major systems serviced annually. Inspection reports available upon request. Sellers are cooperative and motivated."
-};
 </script>
 
 
