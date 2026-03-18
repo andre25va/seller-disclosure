@@ -4438,8 +4438,14 @@ function submitForm() {
       var addr = (data.propertyAddress||'disclosure').replace(/[^a-z0-9]/gi,'_');
       window.downloadPDF(pdfBytes, 'Sellers_Disclosure_' + addr + '.pdf');
       btn.innerHTML = '<span class="spinner"></span> Submitting...';
-      // Convert PDF to base64 and send to webhook for email attachment
-      var base64 = btoa(String.fromCharCode.apply(null, pdfBytes));
+      // Convert PDF to base64 (chunked to avoid stack overflow on large PDFs)
+      var binary = '';
+      var bytes = new Uint8Array(pdfBytes);
+      var chunkSize = 8192;
+      for (var i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+      }
+      var base64 = btoa(binary);
       return fetch(TASKLET_WEBHOOK, {
         method: 'POST',
         body: JSON.stringify({ action: 'submitForm', data: data, pdfBase64: base64 }),
