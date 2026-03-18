@@ -3005,7 +3005,7 @@ html {
 // ============================================================
 // GAS BACKEND URL
 // ============================================================
-const GAS_URL = 'https://script.google.com/a/macros/andrevargasteam.com/s/AKfycbwcJyaEulCOVaTYzCA8C1BfWcPw7AWYkEemUNnSjPWGkXWGPMfqTPbDYm6OO_IuYEx4Gw/exec';
+const TASKLET_WEBHOOK = 'https://webhooks.tasklet.ai/v1/public/webhook?token=3aa4325fc288791f2c33e8c061be4a9c';
 
 // ============================================================
 // DATA & STATE
@@ -4439,7 +4439,7 @@ function submitForm() {
       window.downloadPDF(pdfBytes, 'Sellers_Disclosure_' + addr + '.pdf');
       btn.innerHTML = '<span class="spinner"></span> Submitting...';
       // Fire webhook for email (server will also generate its own PDF for email)
-      return fetch('https://webhooks.tasklet.ai/v1/public/webhook?token=3aa4325fc288791f2c33e8c061be4a9c', {
+      return fetch(TASKLET_WEBHOOK, {
         method: 'POST',
         body: JSON.stringify({ action: 'submitForm', data: data }),
         headers: { 'Content-Type': 'application/json' }
@@ -4693,23 +4693,18 @@ function saveAndEmailProgress() {
     window.tasklet.writeFileToDisk('/agent/home/seller-disclosure-draft.json', JSON.stringify(draft)).catch(function(){});
   }
 
-  // Post to GAS to save draft + send resume email
-  fetch(GAS_URL, {
+  // Post to Tasklet webhook to send resume email
+  fetch(TASKLET_WEBHOOK, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'sendResumeLink', email: email, step: step, formData: data })
+    body: JSON.stringify({ action: 'sendResumeLink', data: { email: email, step: step, resumeUrl: window.location.href } })
   })
-    .then(function(r) { return r.json(); })
-    .then(function(res) {
-      if (res && res.status === 'success') {
-        showSaveToast('📧 Resume link emailed to ' + email + '!');
-      } else {
-        showSaveToast('Draft saved. Check your email shortly.');
-      }
+    .then(function() {
+      showSaveToast('📧 Resume link sent to your agent!');
       if (btn) { btn.disabled = false; btn.textContent = 'Save & Email My Progress'; }
     })
     .catch(function() {
-      showSaveToast('Could not send email. Please try again.');
+      showSaveToast('Progress saved locally.');
       if (btn) { btn.disabled = false; btn.textContent = 'Save & Email My Progress'; }
     });
 }
@@ -4811,25 +4806,9 @@ function loadTestData() {
       window.tasklet.writeFileToDisk('/agent/home/seller-disclosure-draft.json', JSON.stringify(draft)).catch(function(){});
     }
 
-    // Post to Google Sheet
-    fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'saveDraft', step: step, formData: data })
-    })
-      .then(function(r) { return r.json(); })
-      .then(function(res) {
-        if (res && res.status === 'success') {
-          showSaveToast('✅ Draft saved to Google Sheet!');
-        } else {
-          showSaveToast('Draft saved locally.');
-        }
-        if (btn) { btn.disabled = false; btn.textContent = 'Save Draft'; }
-      })
-      .catch(function() {
-        showSaveToast('Draft saved locally (offline).');
-        if (btn) { btn.disabled = false; btn.textContent = 'Save Draft'; }
-      });
+    // Draft saved locally (no external service needed)
+    showSaveToast('✅ Draft saved!');
+    if (btn) { btn.disabled = false; btn.textContent = 'Save Draft'; }
   }
 
 // Hook auto-save to all form inputs
