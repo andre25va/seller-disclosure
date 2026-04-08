@@ -811,19 +811,19 @@ html {
       var inc=d.tax14mIncludes||''; if(inc&&inc!=='—') dt(page,94,348.0,inc,{maxW:490});
       var cont=d.tax14mContact||''; if(cont&&cont!=='—') dt(page,94,371.0,cont,{maxW:490});
       mark(page,5,405.6,d.tax14n||''); mark(page,5,497.6,d.prevInspected||'');
-      // Section 16a (special: 5 boxes at top=554.5, yes=box[3], no=box[4])
+      // Section 16a (special: 5 boxes at top=559.24, yes=box[3], no=box[4])
       var v16a=(d.sec16a||'').trim().toLowerCase();
       if(v16a){
-        var b274=(CB[5]||[]).filter(function(b){return Math.abs(b.top-554.5)<3.0;}).sort(function(a,b){return a.cx-b.cx;});
+        var b274=(CB[5]||[]).filter(function(b){return Math.abs(b.top-559.24)<3.0;}).sort(function(a,b){return a.cx-b.cx;});
         if(v16a==='yes'&&b274.length>=4) xmark(page,b274[3].cx,b274[3].cy_rl);
         else if(v16a==='no'&&b274.length>=5) xmark(page,b274[4].cx,b274[4].cy_rl);
       }
-      mark(page,5,566.1,d.sec16b||''); mark(page,5,577.5,d.sec16c||'');
-      mark(page,5,589.1,d.sec16d||''); mark(page,5,612.1,d.sec16e||'');
-      mark(page,5,635.1,d.sec16f||''); mark(page,5,646.5,d.sec16g||'');
-      mark(page,5,658.2,d.sec16h||''); mark(page,5,669.6,d.sec16i||'');
+      mark(page,5,570.85,d.sec16b||''); mark(page,5,582.25,d.sec16c||'');
+      mark(page,5,593.85,d.sec16d||''); mark(page,5,616.85,d.sec16e||'');
+      mark(page,5,639.85,d.sec16f||''); mark(page,5,651.25,d.sec16g||'');
+      mark(page,5,662.87,d.sec16h||''); mark(page,5,674.28,d.sec16i||'');
       var locks=d.sec16iLocks||''; if(locks&&locks!=='—'&&locks!=='None') dt(page,195,681.6,locks,{maxW:350});
-      mark(page,5,692.6,d.sec16j||''); mark(page,5,704.2,d.sec16k||'');
+      mark(page,5,697.28,d.sec16j||''); mark(page,5,708.88,d.sec16k||'');
       drawInitials(page,5);
     }
 
